@@ -161,6 +161,7 @@ else if(operation_info==e_decode)
             printf("ERROR: Decoding FAILED\n");
             return 0;
         }
+     out(&decodeinfo);
 }
 
 //print a error msg if that i/p operation mode is not available
