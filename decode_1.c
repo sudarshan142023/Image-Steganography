@@ -100,7 +100,10 @@ Status decode_secret_file_extn(DecodeInfo *decInfo)
     printf("SUCCESS: Extension decoded -> %s\n", decInfo->extn_secret_file);
 
     // now build full filename: "output" + ".txt" = "output.txt"
-    strcat(decInfo->secret_fname, decInfo->extn_secret_file);
+    if (strstr(decInfo->secret_fname, ".") == NULL)
+    {
+        strcat(decInfo->secret_fname, decInfo->extn_secret_file);
+    }
     printf("SUCCESS: Output file will be -> %s\n", decInfo->secret_fname);
 
     return e_success;
@@ -170,6 +173,8 @@ Status do_decoding(DecodeInfo *decInfo)
     //decode the secrete file data
     if(decode_secret_file_data(decInfo) == e_failure)  
     return e_failure;
+
+    fclose(decInfo->fptr_secret);
 
     printf("SUCCESS: Decoding COMPLETE! Output saved to -> %s\n", decInfo->secret_fname);
     return e_success;
